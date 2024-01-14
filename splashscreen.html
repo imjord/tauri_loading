@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Splash Screen</title>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="loading-message">Checking for updates....</div>
+    <script type="module">
+        import { invoke } from '@tauri-apps/api/tauri';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            invoke("set_shadow");
+            // This will wait for the window to load, but you could
+            // run this function on whatever trigger you want
+            setTimeout(() => {
+                invoke('close_splashscreen');
+            }, 8000);
+        });
+    </script>
+</body>
+</html>
