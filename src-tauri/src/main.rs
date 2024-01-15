@@ -2,10 +2,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 
-use tauri::{Manager, Window, Runtime, AppHandle};
+use tauri::{Manager, Window};
 
-
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+// default tauri greet command on main window.
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
@@ -22,13 +21,12 @@ fn set_shadow(window: Window) {
 }
 
 
-// Create the command:
-// This command must be async so that it doesn't run on the main thread.
+// command closes the splashscreen and then opens the main window
 #[tauri::command]
 async fn close_splashscreen(window: Window) {
-  // Close splashscreen
+  // close splashscreen
   window.get_window("splashscreen").expect("no window labeled 'splashscreen' found").close().unwrap();
-  // Show main window
+  // show main window
   window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
 }
 
